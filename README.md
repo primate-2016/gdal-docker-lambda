@@ -19,7 +19,7 @@ AWS offer a Lambda compatible image in [public ECR](https://gallery.ecr.aws/lamb
 
 GDAL project [produce a Docker image](https://gdal.org/en/stable/download.html#containers) so started with that since it is already using a small Alpine image and their [Dockerfile](https://github.com/OSGeo/gdal/blob/master/Docker/alpine-normal/Dockerfile) looked gnarly so didn't want to try to recreate that on top of the AWS Lambda image.
 
-To run a Docker container in Lambda, it needs the runtime interface client (RIC). This is available on PyPi [here](https://pypi.org/project/awsLambdaric). This dependencies to install this were quite involved to get working on Alpine, so perhaps experiment with which is easier to manage - installing GDAL on to of Lambda compatible image, or installing Lambda ric on the GDAL image?
+To run a Docker container in Lambda, it needs the runtime interface client (RIC). This is available on PyPi [here](https://pypi.org/project/awsLambdaric). The dependencies to install this were quite involved to get working on Alpine, so perhaps experiment with which is easier to manage - installing GDAL on top of Lambda compatible image, or installing Lambda RIC on the GDAL image?
 
 Use ```sam build --cached``` to avoid recreating the Docker image if the Dockerfile hasn't changed
 
