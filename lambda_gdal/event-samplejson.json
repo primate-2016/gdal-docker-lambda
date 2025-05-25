@@ -1,0 +1,38 @@
+{
+  "Records": [
+    {
+      "eventVersion": "2.1",
+      "eventSource": "aws:s3",
+      "awsRegion": "us-west-2",
+      "eventTime": "2025-05-24T19:03:09.737Z",
+      "eventName": "ObjectCreated:Put",
+      "userIdentity": {
+        "principalId": "AWS:AROA6F5RR6CRGSTOY4WZ5:abcd"
+      },
+      "requestParameters": {
+        "sourceIPAddress": "1.1.1.1"
+      },
+      "responseElements": {
+        "x-amz-request-id": "W3RFZ85ZJW10CWWQ",
+        "x-amz-id-2": "1JX+1W+iNALqcnjpT2RQi/NBRnU4GKRpOQNLubXm6x9uJNti7IV9fmhUYQu0FEBffo2HNrDvBdamVQlvSYHHgjCLY8jMPNpr"
+      },
+      "s3": {
+        "s3SchemaVersion": "1.0",
+        "configurationId": "ZWFjMjcwNzYtYTE1Zi00NjgzLWJlNWUtOGQxMjlmNjFhODM4",
+        "bucket": {
+          "name": "gdal-lambda-1234567890",
+          "ownerIdentity": {
+            "principalId": "xyz"
+          },
+          "arn": "arn:aws:s3:::gdal-lambda-xyz"
+        },
+        "object": {
+          "key": "pension-contribution.jpg",
+          "size": 1943332,
+          "eTag": "b72a9576d30ad9a5e6dfdff768d23451",
+          "sequencer": "00683217EDA502265C"
+        }
+      }
+    }
+  ]
+}

@@ -1,0 +1,69 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Description: >
+  gdal-docker
+
+  GDAL Lambda function using Docker container image
+
+  SAM will create the ECR repo for the Docker image during deployment (sam deploy)
+
+Globals:
+  Function:
+    Timeout: 30
+    MemorySize: 512
+    Tracing: Active
+    LoggingConfig:
+      LogFormat: JSON
+
+Resources:
+  GdalLambdaFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: gdal-lambda
+      PackageType: Image
+      ImageConfig:
+        Command: ["lambda_gdal.lambda_handler"]
+      Architectures:
+        - arm64
+      Policies:
+        - Version: '2012-10-17'
+          Statement:
+            - Effect: Allow
+              Action:
+                - s3:GetObject
+                - s3:ListBucket
+              Resource:
+                - !Sub arn:aws:s3:::gdal-lambda-${AWS::AccountId}/* # Use !Sub and construct name here to avoid circular dependency with LambdaInvokePermission
+                - !Sub arn:aws:s3:::gdal-lambda-${AWS::AccountId}
+      Events:
+        S3Event:
+          Type: S3
+          Properties:
+            Bucket: !Ref GdalS3Bucket
+            Events: s3:ObjectCreated:*
+    Metadata:
+      Dockerfile: Dockerfile
+      DockerContext: .
+      DockerTag: latest
+
+  GdalS3Bucket:
+    Type: AWS::S3::Bucket
+    Properties:
+      BucketName: !Sub gdal-lambda-${AWS::AccountId}
+    DependsOn: LambdaInvokePermission
+
+  LambdaInvokePermission:
+    Type: AWS::Lambda::Permission
+    Properties:
+      Action: lambda:InvokeFunction
+      FunctionName: !Ref GdalLambdaFunction
+      Principal: s3.amazonaws.com
+      SourceArn: !Sub arn:aws:s3:::gdal-lambda-${AWS::AccountId}/*
+
+Outputs:
+  GdalLambdaFunction:
+    Description: "GDAL Lambda Function ARN"
+    Value: !GetAtt GdalLambdaFunction.Arn
+  GdalS3Bucket:
+    Description: "S3 Bucket for triggering GDAL Lambda"
+    Value: !Ref GdalS3Bucket
