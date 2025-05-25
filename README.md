@@ -24,3 +24,5 @@ To run a Docker container in Lambda, it needs the runtime interface client (RIC)
 Use ```sam build --cached``` to avoid recreating the Docker image if the Dockerfile hasn't changed
 
 The Dockerfile uses a multi-stage build to produce a smaller final image. Ideally split out the build of the initial larger image (which takes a couple of minutes) into your own base image to shorten development cycle for the smaller image with the lambda script.
+
+Thanks to the author of [this video](https://www.youtube.com/watch?v=bqI0edikLkc) for pointing me in the right direction.
