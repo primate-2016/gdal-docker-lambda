@@ -1,6 +1,6 @@
 # GDAL Docker Lambda
 
-You will need **Docker** installed before you can use this repo. The image specifically uses arm64 architecture (to target Graviton) and so needs to be built on a Mac or other arm64 chip, or you will need to make it multi-architecture..?
+You will need **Docker** and **[AWS SAM](https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/install-sam-cli.html)** installed before you can use this repo. The image specifically uses arm64 architecture (to target Graviton) and so needs to be built on a Mac or other arm64 chip, or you will need to make it multi-architecture..?
 
 This repo creates an AWS container Lambda function with the capability to use [GDAL](https://gdal.org/en/stable/).
 
